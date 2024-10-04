@@ -4,7 +4,7 @@
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
 }
-.nav{
+.colorBar{
     width: auto;
     height: 50px;
     position: fixed;
@@ -26,10 +26,10 @@ img{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.nav div, button, input{
+.colorBar div, button, input{
     margin: 5px;
 }
-.nav:hover{
+.colorBar:hover{
     cursor: pointer;
 }
 button:hover{
