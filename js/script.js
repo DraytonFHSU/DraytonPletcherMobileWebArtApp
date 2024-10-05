@@ -51,7 +51,7 @@ saveBtn.addEventListener("click", () => {
 window.addEventListener("mousedown", (e) => {
     draw = true;
     prevX = e.clientX;
-    prevY = e.clientY; // Set starting point
+    prevY = e.clientY - 65; // Set starting point
 });
 
 window.addEventListener("mouseup", () => draw = false);
@@ -59,7 +59,7 @@ window.addEventListener("mousemove", (e) => {
     if (!draw) return; // If not drawing, do nothing
 
     let currentX = e.clientX;
-    let currentY = e.clientY;
+    let currentY = e.clientY - 65;
 
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
