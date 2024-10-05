@@ -1,3 +1,4 @@
+/* Primarily for index html - some things I didn't get translated to materialize */
 *{
     margin:0;
     padding:0;
@@ -42,7 +43,6 @@ button:hover{
     border-radius: 50%;
     border: 3px solid white;
 }
-
 
 button{
     border: none;
