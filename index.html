@@ -13,29 +13,28 @@
     />
 </head>
 <body>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="/pages/about.html">About</a></li>
-        <li><a href="/pages/contact.html">Contact</a></li>
-    </ul> 
+    <nav container class="light-blue">
+        <a href="index.html" aria-label="Draw Home">Home</a>
+        <a href="/pages/about.html" aria-label="Draw About">About</a>
+        <a href="/pages/contact.html" aria-label="Draw Contact">Contact</a>
+    </nav> 
     <canvas id="canvas"></canvas>
     <div class="colorBar">
-        <div class="clr black" data-clr="#000"></div>
-        <div class="clr red" data-clr="red"></div>
-        <div class="clr orange" data-clr="orange"></div>
-        <div class="clr blue" data-clr="blue"></div>
-        <div class="clr purple" data-clr="purple"></div>
-        <div class="clr yellowgreen" data-clr="yellowgreen"></div>
-        <div class="clr yellow" data-clr="yellow"></div>
-        <div class="clr white" data-clr="#fff"></div>
-        <button class="clear">Clear</button>
-        <button class="save">Save</button>
+        <div class="clr black circle hoverable" aria-label="Black" data-clr="#000"></div>
+        <div class="clr red circle hoverable" aria-label="Red" data-clr="red"></div>
+        <div class="clr orange circle hoverable" aria-label="Orange" data-clr="orange"></div>
+        <div class="clr blue circle hoverable" aria-label="Blue" data-clr="blue"></div>
+        <div class="clr purple circle hoverable" aria-label="Purple" data-clr="purple"></div>
+        <div class="clr yellowgreen circle hoverable" aria-label="Yellow Green" data-clr="yellowgreen"></div>
+        <div class="clr yellow circle hoverable" aria-label="Yellow" data-clr="yellow"></div>
+        <div class="clr white circle hoverable" aria-label="White" data-clr="#fff"></div>
+        <button class="clear hoverable">Clear</button>
+        <button class="save blue hoverable">Save</button>
         <input type="color" id="favcolor" value="#FFFFFF">
         <input type="range" name="ageInputName" id="ageInputId" value="5" min="1" max="10" oninput="ageOutputId.value = ageInputId.value">
         <output id="ageOutputId">5</output>
     </div>
     <script src="/js/materialize.min.js"></script>
-    <script src="/js/ui.js"></script>
     <script src="/js/script.js"></script>
 </body>
 </html>
