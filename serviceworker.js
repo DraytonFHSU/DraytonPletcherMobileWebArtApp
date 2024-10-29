@@ -1,13 +1,14 @@
-const CACHE_NAME = "task-manager-v3";
+const CACHE_NAME = "321Draw-v1";
 const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
   "/pages/about.html",
   "/pages/contact.html",
+  "/pages/gallery.html",
   "/css/materialize.min.css",
+  "/css/style.css",
   "/js/materialize.min.js",
-  "/js/ui.js",
-  "/img/icons/task.png",
+  "/js/script.js",
 ];
 
 self.addEventListener("install", (event) => {
