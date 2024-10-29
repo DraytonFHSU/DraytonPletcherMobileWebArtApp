@@ -1,3 +1,4 @@
+//Set up the canvas
 const canvas = document.getElementById("canvas");
 const body = document.querySelector("body");
 canvas.height = window.innerHeight;
@@ -69,3 +70,11 @@ window.addEventListener("mousemove", (e) => {
     prevX = currentX;
     prevY = currentY; // Update previous coordinates
 });
+
+// Register Service Worker
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/serviceworker.js")
+      .then((req) => console.log("Service Worker Registered!", req))
+      .catch((err) => console.log("Service Worker registration failed", err));
+  }
