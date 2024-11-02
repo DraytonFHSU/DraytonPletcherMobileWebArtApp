@@ -25,31 +25,31 @@
     "screenshots": [
       {
         "src": "/img/screenshots/Screenshot1.png",
-        "sizes": "776x914",
+        "sizes": "1918x872",
         "type": "image/png",
         "form_factor": "wide"
       },
       {
         "src": "/img/screenshots/Screenshot2.png",
-        "sizes": "776x914",
+        "sizes": "1918x873",
         "type": "image/png",
-        "form_factor": "narrow"
+        "form_factor": "wide"
       }
     ],
   
     "shortcuts": [
       {
-        "name": "Add Task",
-        "short_name": "New Task",
-        "description": "Quickly add a new task",
-        "url": "/new-task",
+        "name": "Save Image",
+        "short_name": "Save",
+        "description": "Save the Image to the database",
+        "url": "/save-image",
         "icons": [{ "src": "/img/icons/icon-192x192.png", "sizes": "192x192" }]
       },
       {
-        "name": "View Completed Tasks",
-        "short_name": "Completed",
-        "description": "View all completed tasks",
-        "url": "/completed",
+        "name": "Clear Image",
+        "short_name": "Clear",
+        "description": "Clear the image",
+        "url": "/clear",
         "icons": [{ "src": "/img/icons/icon-192x192.png", "sizes": "192x192" }]
       }
     ]
