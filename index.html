@@ -19,6 +19,13 @@
         <a href="/pages/about.html" aria-label="Draw About">About</a>
         <a href="/pages/contact.html" aria-label="Draw Contact">Contact</a>
         <a href="/pages/gallery.html" aria-label="Gallery">Gallery</a>
+            <a
+              href="#"
+              id="logout-btn"
+              class="waves-effect grey-text text-darken-4"
+              style="display: none"
+              >Logout</a
+            >
     </nav> 
     <canvas id="canvas"></canvas>
     <div class="colorBar">
@@ -38,7 +45,13 @@
         <output id="ageOutputId">5</output>
     </div>
     <script src="/js/materialize.min.js"></script>
-    <script src="/js/script.js"></script>
+<!--basically ui.js-->
+    <script type="module" src="/js/script.js"></script>
+<!--Firebase-->
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js"></script>
+
     <link rel="manifest" href="manifest.json" />
 </body>
 </html>
