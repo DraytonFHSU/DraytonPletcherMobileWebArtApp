@@ -8,23 +8,24 @@ import {
   deleteDoc,
   updateDoc,
   doc,
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 /////////////////////////////
-// Save the drawing to Gallery
+// Save the image to Gallery
 
 export async function saveDrawing() {
+  console.log("test")
 const dataURL = canvas.toDataURL('image/png');
-    const drawingsRef = db.collection('drawings');
-    drawingsRef.add({
+    const imagesRef = db.collection('images');
+    imagesRef.add({
       imageData: dataURL,
-      // Other drawing data
+      // Other image data
   })
   .then((docRef) => {
       console.log("Drawing saved with ID:", docRef.id);
   })
   .catch((error) => {
-      console.error("Error saving drawing:", error);
+      console.error("Error saving image:", error);
   });
 }
 
