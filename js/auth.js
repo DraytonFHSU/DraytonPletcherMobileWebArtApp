@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currentUser = user;
       console.log("User ID: ", user.uid);
       console.log("Email: ", user.email);
-      console.log("name: ", user.name);
+      console.log("name: ", user.displayName);
 
       if (logoutBtn) {
         logoutBtn.style.display = "block";
