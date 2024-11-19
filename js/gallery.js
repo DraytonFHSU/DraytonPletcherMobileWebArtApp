@@ -59,36 +59,6 @@ function isOnline() {
   return navigator.onLine;
 }
 
-// --- Image Management Functions ---
-
-// Add Image (either to Firebase or IndexedDB)
-async function addImage(image) {
-  const db = await getDB();
-  let imageId;
-
-  if (isOnline()) {
-    try {
-      const savedImage = await addImageToFirebase(image);
-      imageId = savedImage.id;
-      const tx = db.transaction("images", "readwrite");
-      const store = tx.objectStore("images");
-      await store.put({ ...image, id: imageId, synced: true });
-      await tx.done;
-    } catch (error) {
-      console.error("Error adding image to Firebase:", error);
-    }
-  } else {
-    imageId = `temp-${Date.now()}`;
-    const imageToStore = { ...image, id: imageId, synced: false };
-    const tx = db.transaction("images", "readwrite");
-    const store = tx.objectStore("images");
-    await store.put(imageToStore);
-    await tx.done;
-  }
-
-  checkStorageUsage();
-  return { ...image, id: imageId };
-}
 
 // Delete Image with Transaction
 async function deleteImage(id) {
@@ -121,23 +91,6 @@ async function deleteImage(id) {
   checkStorageUsage();
 }
 
-//   // Load and display drawings
-//   function loadImages() {
-//     const db = firebase.firestore();
-//     const drawingsRef = db.collection('drawings');
-//     drawingsRef.get()
-//       .then((querySnapshot) => {
-//         querySnapshot.forEach((doc) => {
-//           const imageData = doc.data().imageData;
-//           const img = document.createElement('img');
-//           img.src = imageData;
-//           document.body.appendChild(img);
-//         });
-//       })
-//       .catch((error) => {
-//         console.error("Error getting drawings:", error);
-//       });
-//   }
 
 // Display Image in the UI
 function displayImage(image) {
@@ -183,34 +136,6 @@ function displayImage(image) {
     openEditForm(image.id, image.title, image.description)
   );
 }
-
-// // Add/Edit Image Button Listener
-// const addImageButton = document.querySelector("#form-action-btn");
-// addImageButton.addEventListener("click", async () => {
-//   const titleInput = document.querySelector("#title");
-//   const descriptionInput = document.querySelector("#description");
-//   const imageIdInput = document.querySelector("#image-id");
-//   const formActionButton = document.querySelector("#form-action-btn");
-//   // Prepare the image data
-//   const imageId = imageIdInput.value; // If editing, this will have a value
-//   const imageData = {
-//     title: titleInput.value,
-//     description: descriptionInput.value,
-//     status: "pending",
-//   };
-//   if (!imageId) {
-//     // If no imageId, we are adding a new image
-//     const savedImage = await addImage(imageData);
-//     displayImage(savedImage); // Display new image in the UI
-//   } else {
-//     // If imageId exists, we are editing an existing image
-//     await editImage(imageId, imageData); // Edit image in Firebase and IndexedDB
-//     loadImages(); // Refresh image list to show updated data
-//   }
-//   // Reset the button text and close the form
-//   formActionButton.textContent = "Add";
-//   closeForm();
-// });
 
 // Open Edit Form with Existing Image Data
 function openEditForm(id, title, description) {

@@ -10,25 +10,6 @@ import {
   doc,
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
-/////////////////////////////
-// Save the image to Gallery
-
-export async function saveDrawing() {
-  console.log("test")
-const dataURL = canvas.toDataURL('image/png');
-    const imagesRef = db.collection('images');
-    imagesRef.add({
-      imageData: dataURL,
-      // Other image data
-  })
-  .then((docRef) => {
-      console.log("Drawing saved with ID:", docRef.id);
-  })
-  .catch((error) => {
-      console.error("Error saving image:", error);
-  });
-}
-
 export async function loadImages() {
   const images = [];
   try {
@@ -59,16 +40,16 @@ export async function deleteImageFromFirebase(id) {
   }
 }
 
-// export async function updateImageInFirebase(id, updatedData) {
-//   console.log(updatedData, id);
-//   try {
-//     if (!currentUser) {
-//       throw new Error("User is not authenticated");
-//     }
-//     const userId = currentUser.uid;
-//     const imageRef = doc(db, "users", userId, "images", id);
-//     await updateDoc(imageRef, updatedData);
-//   } catch (e) {
-//     console.error("Error updating image: ", e);
-//   }
-// }
+export async function updateImageInFirebase(id, updatedData) {
+  console.log(updatedData, id);
+  try {
+    if (!currentUser) {
+      throw new Error("User is not authenticated");
+    }
+    const userId = currentUser.uid;
+    const imageRef = doc(db, "users", userId, "images", id);
+    await updateDoc(imageRef, updatedData);
+  } catch (e) {
+    console.error("Error updating image: ", e);
+  }
+}
