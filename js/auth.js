@@ -3,8 +3,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { loadImages} from "./firebaseDB.js";
-import { syncImages } from "./gallery.js";
+import { loadImages, syncImages } from "./gallery.js";
 
 export let currentUser = null;
 

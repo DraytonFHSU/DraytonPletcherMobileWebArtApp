@@ -9,6 +9,7 @@ import {
   updateDoc,
   doc,
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { addImageToFirebase } from "./firebaseDB.js";
 //Set up the canvas
 const canvas = document.getElementById("canvas");
 const body = document.querySelector("body");
@@ -92,7 +93,7 @@ if ("serviceWorker" in navigator) {
       .catch((err) => console.log("Service Worker registration failed", err));
   }
 
-//firebase add to Gallery
+//firebase add to Gallery (Here since the front page has the save to gallery button)
 let saveGalleryBtn = document.querySelector(".saveGallery");
 saveGalleryBtn.addEventListener("click", async ()=>{
     const dataURL = canvas.toDataURL('image/png');

@@ -1,8 +1,40 @@
-//imports
+//Imports
 import { openDB } from "https://unpkg.com/idb?module";
+import { addImageToFirebase, getImagesFromFirebase, deleteImageFromFirebase, updateImageInFirebase} from "./firebaseDB.js";
+import { currentUser } from "./auth.js";
+import { db } from "./firebaseConfig.js";
 import {
-    loadImages
-} from "./firebaseDB.js";
+  collection,
+  addDoc,
+  setDoc,
+  getDocs,
+  deleteDoc,
+  updateDoc,
+  doc,
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+// --- Constants ---
+const STORAGE_THRESHOLD = 0.8;
+
+// Global variable to hold service worker registration
+let serviceWorkerRegistration = null;
+
+// --- Initialization and Event Listeners ---
+document.addEventListener("DOMContentLoaded", function () {
+  const menus = document.querySelector(".sidenav");
+  M.Sidenav.init(menus, { edge: "right" });
+  const forms = document.querySelector(".side-form");
+  M.Sidenav.init(forms, { edge: "left" });
+  checkStorageUsage();
+  requestPersistentStorage();
+  // Add event listener for the "Enable Notifications" button
+  const notificationButton = document.getElementById(
+    "enable-notifications-btn"
+  );
+  if (notificationButton) {
+    notificationButton.addEventListener("click", initNotificationPermission);
+  }
+});
 
 //Indexed DB
 // --- Database Operations ---
@@ -59,7 +91,6 @@ function isOnline() {
   return navigator.onLine;
 }
 
-
 // Delete Image with Transaction
 async function deleteImage(id) {
   if (!id) {
@@ -91,10 +122,31 @@ async function deleteImage(id) {
   checkStorageUsage();
 }
 
+export async function loadImages() {
+  const images = [];
+  try {
+    if (!currentUser) {
+      throw new Error("User is not authenticated");
+    }
+    const userId = currentUser.uid;
+    const imageRef = collection(doc(db, "users", userId), "images");
+    const querySnapshot = await getDocs(imageRef);
+    querySnapshot.forEach((doc) => {
+      images.push({ id: doc.id, ...doc.data() });
+    });
+  } catch (e) {
+    console.error("Error retrieving images: ", e);
+  }
+  return images;
+}
 
 // Display Image in the UI
 function displayImage(image) {
   const imageContainer = document.querySelector(".images");
+
+  var image = new Image();
+  image.src = collection(doc(db, "users", userId), "images");
+  document.body.appendChild(image);
 
   // Check if the image already exists in the UI and remove it
   const existingImage = imageContainer.querySelector(`[data-id="${image.id}"]`);
@@ -104,20 +156,22 @@ function displayImage(image) {
 
   // Create new image HTML and add it to the container
   const html = `
-    <div class="card-panel white row valign-wrapper" data-id="${image.id}">
+    <div class="card-panel white row valign-wrapper">
       <div class="col s2">
-        <img src="/img/icons/image.png" class="circle responsive-img" alt="Image icon" style="max-width: 100%; height: auto"/>
-      </div>
-      <div class="image-detail col s8">
-        <h5 class="image-title black-text">${image.title}</h5>
-        <div class="image-description">${image.description}</div>
-      </div>
-      <div class="col s2 right-align">
-        <button class="image-delete btn-flat" aria-label="Delete image">
-          <i class="material-icons black-text text-darken-1" style="font-size: 30px">delete</i>
-        </button>
-        <button class="image-edit btn-flat" data-target="side-form" aria-label="Edit image">
-          <i class="material-icons black-text text-darken-1" style="font-size: 30px">edit</i>
+        <img
+        src="/img/icons/icon-192x192.png"
+        class="responsive-img"
+        alt="Image icon"
+        style="max-width: 100%; height: auto"
+        />
+        </div>
+        <div class="col s2 right-align">
+          <button class="image-delete btn-flat" aria-label="Delete image">
+          <i
+            class="large material-icons black-text-darken-1"
+            style="font-size: 30px"
+            >delete</i
+          >
         </button>
       </div>
     </div>

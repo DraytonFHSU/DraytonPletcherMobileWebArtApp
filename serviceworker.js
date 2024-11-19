@@ -3,12 +3,18 @@ const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
   "/pages/about.html",
+  "/pages/auth.html",
   "/pages/contact.html",
   "/pages/gallery.html",
   "/css/materialize.min.css",
   "/css/style.css",
+  "/js/auth.js",
+  "/js/firebaseConfig.js",
+  "/js/firebaseDB.js",
+  "/js/gallery.js",
   "/js/materialize.min.js",
   "/js/script.js",
+  "/js/singIn.js",
 ];
 
 self.addEventListener("install", (event) => {

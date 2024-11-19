@@ -10,7 +10,32 @@ import {
   doc,
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
-export async function loadImages() {
+// Add a image
+export async function addImageToFirebase(image) {
+  try {
+    if (!currentUser) {
+      throw new Error("User is not authenticated");
+    }
+    const userId = currentUser.uid;
+    console.log("userID: ", userId);
+    const userRef = doc(db, "users", userId);
+    await setDoc(
+      userRef,
+      {
+        email: currentUser.email,
+        name: currentUser.displayName,
+      },
+      { merge: true }
+    );
+    const imagesRef = collection(userRef, "images");
+    const docRef = await addDoc(imagesRef, image);
+    return { id: docRef.id, ...image };
+  } catch (e) {
+    console.error("Error adding image: ", e);
+  }
+}
+
+export async function getImagesFromFirebase() {
   const images = [];
   try {
     if (!currentUser) {
