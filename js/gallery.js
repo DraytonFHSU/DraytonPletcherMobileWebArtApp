@@ -162,7 +162,7 @@ function displayImage(image) {
 
   // Create new image HTML and add it to the container
   const html = `
-    <div class="card-panel white row valign-wrapper">
+    <div class="card-panel white row valign-wrapper" data-id="${image.id}">
       <div class="col s2">
         <img
         src=${image.imageData}
@@ -184,19 +184,8 @@ function displayImage(image) {
   `;
   imageContainer.insertAdjacentHTML("beforeend", html);
 
-//   const deleteButton = imageContainer.querySelector(
-//     `[data-id="${image.id}"] .image-delete`
-//   );
-// console.log(deleteButton)
-
-//   deleteButton.addEventListener("click", () => deleteImage(image.id));
-
-  // const editButton = imageContainer.querySelector(
-  //   `[data-id="${image.id}"] .image-edit`
-  // );
-  // editButton.addEventListener("click", () =>
-  //   openEditForm(image.id, image.title, image.description)
-  // );
+const deleteButton = imageContainer.querySelector(`[data-id="${image.id}"] .image-delete`);
+deleteButton.addEventListener("click", () => deleteImage(image.id));
 }
 
 // Open Edit Form with Existing Image Data
