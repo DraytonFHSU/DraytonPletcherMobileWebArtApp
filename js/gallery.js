@@ -21,10 +21,10 @@ let serviceWorkerRegistration = null;
 
 // --- Initialization and Event Listeners ---
 document.addEventListener("DOMContentLoaded", function () {
-  const menus = document.querySelector(".sidenav");
-  M.Sidenav.init(menus, { edge: "right" });
-  const forms = document.querySelector(".side-form");
-  M.Sidenav.init(forms, { edge: "left" });
+  // const menus = document.querySelector(".sidenav");
+  // M.Sidenav.init(menus, { edge: "right" });
+  // const forms = document.querySelector(".side-form");
+  // M.Sidenav.init(forms, { edge: "left" });
   checkStorageUsage();
   requestPersistentStorage();
   // Add event listener for the "Enable Notifications" button
@@ -123,30 +123,36 @@ async function deleteImage(id) {
 }
 
 export async function loadImages() {
-  const images = [];
-  try {
-    if (!currentUser) {
-      throw new Error("User is not authenticated");
+  const db = await getDB();
+  const imageContainer = document.querySelector(".images");
+  //imageContainer.innerHTML = "";
+
+  if (isOnline()) {
+    const firebaseImages = await getImagesFromFirebase();
+    const tx = db.transaction("images", "readwrite");
+    const store = tx.objectStore("images");
+
+    for (const image of firebaseImages) {
+      await store.put({ ...image, synced: true });
+      displayImage(image);
     }
-    const userId = currentUser.uid;
-    const imageRef = collection(doc(db, "users", userId), "images");
-    const querySnapshot = await getDocs(imageRef);
-    querySnapshot.forEach((doc) => {
-      images.push({ id: doc.id, ...doc.data() });
+    await tx.done;
+  } else {
+    const tx = db.transaction("images", "readonly");
+    const store = tx.objectStore("images");
+    const images = await store.getAll();
+    images.forEach((image) => {
+      displayImage(image);
     });
-  } catch (e) {
-    console.error("Error retrieving images: ", e);
+    await tx.done;
   }
-  return images;
 }
 
 // Display Image in the UI
 function displayImage(image) {
   const imageContainer = document.querySelector(".images");
 
-  var image = new Image();
-  image.src = collection(doc(db, "users", userId), "images");
-  document.body.appendChild(image);
+ console.log(image.id)
 
   // Check if the image already exists in the UI and remove it
   const existingImage = imageContainer.querySelector(`[data-id="${image.id}"]`);
@@ -159,7 +165,7 @@ function displayImage(image) {
     <div class="card-panel white row valign-wrapper">
       <div class="col s2">
         <img
-        src="/img/icons/icon-192x192.png"
+        src=${image.imageData}
         class="responsive-img"
         alt="Image icon"
         style="max-width: 100%; height: auto"
@@ -178,17 +184,19 @@ function displayImage(image) {
   `;
   imageContainer.insertAdjacentHTML("beforeend", html);
 
-  const deleteButton = imageContainer.querySelector(
-    `[data-id="${image.id}"] .image-delete`
-  );
-  deleteButton.addEventListener("click", () => deleteImage(image.id));
+//   const deleteButton = imageContainer.querySelector(
+//     `[data-id="${image.id}"] .image-delete`
+//   );
+// console.log(deleteButton)
 
-  const editButton = imageContainer.querySelector(
-    `[data-id="${image.id}"] .image-edit`
-  );
-  editButton.addEventListener("click", () =>
-    openEditForm(image.id, image.title, image.description)
-  );
+//   deleteButton.addEventListener("click", () => deleteImage(image.id));
+
+  // const editButton = imageContainer.querySelector(
+  //   `[data-id="${image.id}"] .image-edit`
+  // );
+  // editButton.addEventListener("click", () =>
+  //   openEditForm(image.id, image.title, image.description)
+  // );
 }
 
 // Open Edit Form with Existing Image Data
@@ -272,3 +280,5 @@ async function requestPersistentStorage() {
 
 window.addEventListener("online", syncImages);
 window.addEventListener("online", loadImages);
+
+//window.onload = (loadImages);

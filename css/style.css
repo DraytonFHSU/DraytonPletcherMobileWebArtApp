@@ -22,10 +22,9 @@
     border: 3px solid white;
 }
 img{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative; /* or remove the position entirely */
+  width: 100%;        /* Ensure the image fits its container */
+  height: auto;
 }
 .colorBar div, button, input{
     margin: 5px;
