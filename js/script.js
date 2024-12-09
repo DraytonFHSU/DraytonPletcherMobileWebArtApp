@@ -83,7 +83,11 @@ window.addEventListener("mousemove", (e) => {
     prevY = currentY; // Update previous coordinates
 });
 
-
+//Sidenav Initializer
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+});
 
 // Register Service Worker
 if ("serviceWorker" in navigator) {

@@ -14,26 +14,41 @@
     />
 </head>
 <body>
-    <nav container class="light-blue">
-        <ul>
-        <li>
-            <a href="index.html" aria-label="Draw Home">Home</a>
-        </li>
-        <li>
-            <a href="/pages/about.html" aria-label="Draw About">About</a>
-        </li>
-        <li>
-            <a href="/pages/contact.html" aria-label="Draw Contact">Contact</a>
-        </li>
-        <li>
-            <a href="/pages/gallery.html" aria-label="Gallery">Gallery</a>
-        </li>
-        <li>
-            <a href="#" style="display: none" id="logout-btn" class="waves-effect">Logout</a>
-        </li>
+    <div class="nav-wrapper">
+    <!--Large Screens-->
+        <nav container class="light-blue">
+            <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="hide-on-med-and-down">
+                <li>
+                    <a href="index.html" aria-label="Draw Home">Home</a>
+                </li>
+                <li>
+                    <a href="/pages/about.html" aria-label="Draw About">About</a>
+                </li>
+                <li>
+                    <a href="/pages/contact.html" aria-label="Draw Contact">Contact</a>
+                </li>
+                <li>
+                    <a href="/pages/gallery.html" aria-label="Gallery">Gallery</a>
+                </li>
+                <li>
+                    <a href="#" style="display: none" id="logout-btn">Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </nav>
+    
+    <!-- Small screens nav-->
+    <ul class="sidenav" id="mobile-menu">
+        <li><a class="subheader">321Draw</a></li>
+        <li><a href="/" class="waves-effect grey-text text-darken-4">Home</a></li>
+        <li><a href="/pages/about.html" class="waves-effect grey-text text-darken-4">About</a></li>
+        <li><div class="divider"></div></li>
+        <li><a href="/pages/contact.html" class="waves-effect grey-text text-darken-4">Contact</a></li>
+        <li><div class="divider"></div></li>
+        <li><a href="/pages/gallery.html" class="waves-effect grey-text text-darken-4">Gallery</a></li>
     </ul>
-        
-    </nav> 
+
     <canvas id="canvas"></canvas>
     <div class="colorBar">
         <div class="clr black circle hoverable" aria-label="Black" data-clr="#000"></div>
