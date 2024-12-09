@@ -21,10 +21,6 @@ let serviceWorkerRegistration = null;
 
 // --- Initialization and Event Listeners ---
 document.addEventListener("DOMContentLoaded", function () {
-  // const menus = document.querySelector(".sidenav");
-  // M.Sidenav.init(menus, { edge: "right" });
-  // const forms = document.querySelector(".side-form");
-  // M.Sidenav.init(forms, { edge: "left" });
   checkStorageUsage();
   requestPersistentStorage();
   // Add event listener for the "Enable Notifications" button
@@ -125,7 +121,6 @@ async function deleteImage(id) {
 export async function loadImages() {
   const db = await getDB();
   const imageContainer = document.querySelector(".images");
-  //imageContainer.innerHTML = "";
 
   if (isOnline()) {
     const firebaseImages = await getImagesFromFirebase();

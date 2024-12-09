@@ -100,7 +100,7 @@ if ("serviceWorker" in navigator) {
 //firebase add to Gallery (Here since the front page has the save to gallery button)
 let saveGalleryBtn = document.querySelector(".saveGallery");
 saveGalleryBtn.addEventListener("click", async ()=>{
-    const dataURL = canvas.toDataURL('image/png');
+    const dataURL = canvas.toDataURL('image/png'); //I convert the image to Byte64 so that it can be stored in the firebase database as text
     if (!currentUser) {
       throw new Error("User is not authenticated");
     }
